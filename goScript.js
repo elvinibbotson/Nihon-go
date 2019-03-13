@@ -27,11 +27,6 @@ function id(el) {
 	else id("menu").style.display = "block";
   });
 	
-  id("buttonBack").addEventListener('click', function() { // BACK BUTTON
-  	qFocus=null;
-	// fillList();
-  })
-	
   document.getElementById("import").addEventListener('click', function() { // IMPORT OPTION
   	console.log("IMPORT");
 	toggleDialog("importDialog", true);
@@ -97,13 +92,42 @@ function id(el) {
 	alert(fileName+" saved to downloads folder");
 	id("menu").style.display="none";
   })
+  
+  id('lookupButton').addEventListener('click', function() { // LOOKUP BUTTON
+  	var word=id('wordField').value;
+  	console.log("lookup "+word);
+  	var i=0;
+  	var found=false;
+  	while((i<records.length)&&!found) {
+  		if(records[i].romaji.indexOf(word)>=0) found=true;
+  		if(records[i].anglo.indexOf(word)>=0) found=true;
+  		// if((word==records[i].romaji)||(word==record[i].anglo)) found=true;
+  		if(!found) i++;
+  	}
+  	console.log("found is "+found+" record is "+i);
+  	if(found) {
+  		id('title').innerHTML=word+" match:";
+  		id('kanji').innerHTML=records[i].kanji;
+  		id('kana').innerHTML=records[i].kana;
+  		id('romaji').innerHTML=records[i].romaji;
+  		id('anglo').innerHTML=records[i].anglo;
+  
+  	}
+  	else {
+  		id('kanji').innerHTML=id('kana').innerHTML=id('romaji').innerHTML=id('anglo').innerHTML='';
+  		id('title').innerHTML="no matches";
+	}
+	id('wordField').value='';
+	id('display').style.display='block';
+  })
 
   document.getElementById('buttonNew').addEventListener('click', function() { // NEW BUTTON
+    // hide display if visible
+    id('display').style.display='none';
     // show the dialog
 	// console.log("show add diaog with today's date,  blank fields and delete button disabled");
     toggleDialog('recordDialog', true);
 	id('kanjiField').value=id('kanaField').value=id('romajiField').value=id('angloField').value="";
-	id('levelField').value=0;
 	record={};
 	recordIndex=-1;
 	resort=false;
@@ -115,14 +139,14 @@ function id(el) {
 	console.log("SAVE");
 	
 	record.kanji=id('kanjiField').value;
-	record.level=parseInt(id('levelField').value);
-	record.kana=id('kanaField').value;
-	record.romaji=id('romajiField').value;
-	record.anglo=id('angloField').value;
+	// record.level=parseInt(id('levelField').value);
+	record.kana=record.kana=id('kanaField').value.split(",");
+	record.romaji=id('romajiField').value.split(",");
+	record.anglo=id('angloField').value.split(",");
     toggleDialog('recordDialog', false);
     
     
-   console.log("save "+record.kanji+" (level "+record.level+") "+record.kana+" "+record.romaji+" "+record.anglo);
+   console.log("save "+record.kanji+"; "+record.kana+"; "+record.romaji+"; "+record.anglo);
     
     // check if this word/phrase is already in the recordws array - if so display alert
     
@@ -232,7 +256,7 @@ function id(el) {
 			var cursor = event.target.result;  
     			if (cursor) {
 					records.push(cursor.value);
-					console.log("record "+cursor.key+", id: "+cursor.value.id+", date: "+cursor.value.date+", "+cursor.value.miles+" miles, "+cursor.value.litres+" litres");
+					console.log("record "+cursor.key+", id: "+cursor.value.id+": "+cursor.value.kanji+"; "+cursor.value.kana+"; "+cursor.value.romaji+"; "+cursor.value.anglo);
 					cursor.continue();  
     			}
 			else {console.log("No more entries!");
@@ -256,9 +280,7 @@ function id(el) {
 	if (navigator.serviceWorker.controller) {
 		console.log('Active service worker found, no need to register')
 	} else { //Register the ServiceWorker
-		navigator.serviceWorker.register('top-upSW.js', {
-			scope: '/Top-up/'
-		}).then(function(reg) {
+		navigator.serviceWorker.register('goSW.js').then(function(reg) {
 			console.log('Service worker has been registered for scope:'+ reg.scope);
 		});
 	}

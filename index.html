@@ -6,7 +6,7 @@
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<title>Nihon-go</title>
-  	<link rel="stylesheet" type="text/css" href="nihongoStyles.css">
+  	<link rel="stylesheet" type="text/css" href="goStyles.css">
   	<meta name="application-name" content="Nihon-go">
   	<meta name="msapplication-square150x150logo" content="icons/icon150px.png">
   	<meta name="msapplication-square70x70logo" content="icons/icon75px.png">
@@ -17,20 +17,18 @@
 <header class="header">
 	<button id="buttonMenu" type="menu" menu="menu" class="headerButton" aria-label="Menu"></button>
 	<h1 id="heading" class="header__title">日本語 Nihon-go</h1>
-	<button id="buttonBack" class="headerButton" aria-label="Back"></button>
 </header>
 
 <main id="main" class="main">
    <div class="container">
         <div class="content">
-			lookup <input type='text'/>
-			<button>lookup</button>
+			lookup <input type='text' id='wordField'/>
+			<button id='lookupButton'>lookup</button>
         </div>
         <div class="content">
         	flashcards
         	<button>Japanese</button>
         	<button> English </button>
-        	<button>  kanji  </button>
         </div>
 		<div id='buttonNew' class='round-button'><img src='newButton24px.svg'/></div>
     </div>
@@ -52,11 +50,18 @@
 	</div>
 </div>
 
+<div class="display" id='display'>
+	<div class='dialog-title'><span id='title'></span></div>
+	<div class="dialog-body"><span id='kanji'></span></div>
+	<div class="dialog-body"><span id='kana'></span></div>
+	<div class="dialog-body"><span id='romaji'></span></div>
+	<div class="dialog-body"><span id='anglo'></span></div>
+</div>
+
 <div id="recordDialog" class="dialog-container">
     <div class="dialog">
       <div class="dialog-title">Add word/phrase</div>
       <div class="dialog-body">kanji <input type="text" id="kanjiField"/></div>
-	  <div class="dialog-body">level <input type="number" id="levelField"/></div>
 	  <div class="dialog-body">kana <input type="text" id="kanaField"/></div>
 	  <div class="dialog-body">Romanji <input type="text" id="romajiField"/></div>
 	  <div class="dialog-body">English <input type="text" id="angloField"/></div>

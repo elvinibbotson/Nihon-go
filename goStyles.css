@@ -224,6 +224,17 @@ input {
 	display: none;
 }
 
+.display {
+  background: #DDD;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.24), 0 14px 28px rgba(0, 0, 0, 0.48);
+  position: absolute;
+  left: 10%;
+  top: 200px;
+  width: 80%;
+  padding-top:25px;
+  display: none;
+}
+
 .dialog-container {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
