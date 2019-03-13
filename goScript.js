@@ -96,7 +96,7 @@ function id(el) {
   id('lookupButton').addEventListener('click', function() { // LOOKUP BUTTON
   	var word=id('wordField').value;
   	console.log("lookup "+word);
-  	alert("look up "+word);
+  	// alert("look up "+word);
   	var i=0;
   	var found=false;
   	while((i<records.length)&&!found) {
@@ -107,7 +107,7 @@ function id(el) {
   	}
   	console.log("found is "+found+" record is "+i);
   	if(found) {
-  		id('title').innerHTML=word+" match:";
+  		id('title').innerHTML=word;
   		id('kanji').innerHTML=records[i].kanji;
   		id('kana').innerHTML=records[i].kana;
   		id('romaji').innerHTML=records[i].romaji;
@@ -126,7 +126,7 @@ function id(el) {
     // hide display if visible
     id('display').style.display='none';
     // show the dialog
-    alert("add new word/phrase");
+    // alert("add new word/phrase");
 	// console.log("show add diaog with today's date,  blank fields and delete button disabled");
     toggleDialog('recordDialog', true);
 	id('kanjiField').value=id('kanaField').value=id('romajiField').value=id('angloField').value="";
