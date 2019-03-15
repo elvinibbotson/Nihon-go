@@ -18,21 +18,22 @@
 <header class="header">
 	<button id="buttonMenu" type="menu" menu="menu" class="headerButton" aria-label="Menu"></button>
 	<h1 id="heading" class="header_title">Nihon-go 日本語 </h1>
+	<button id="buttonAdd" class="headerButton"></button>
 </header>
 
 <main id="main" class="main">
    <div class="container">
         <div class="content">
-			<input type='text' id='wordField'/>
-			<button id='lookupButton'>lookup</button> English/Japanese
+			<input type='text' id='findField'/>
+			<button id='findButton'></button>
         </div>
         <div class="content">
         	<br/>
-        	<button>日本語</button>
-        	<button>English</button>
+        	<button class='flashcardButton' id='nihongoButton'>日本語</button>
+        	<button class='flashcardButton' id='angloButton'>English</button>
         	flashcards
         </div>
-		<div id='buttonNew' class='round-button'><img src='newButton24px.svg'/></div>
+		<!--div id='buttonNew' class='round-button'><img src='newButton24px.svg'/></div-->
     </div>
 </main>
 
@@ -47,30 +48,35 @@
 		<input type="file" id="fileChooser">
 		<div class="dialog-body">Imported data will replace any records you already have.</div>
     		<div class="dialog-buttons">
-			<button id="buttonCancelImport" class="button">Cancel</button>
+			<button id="buttonCancelImport" class="button">CANCEL</button>
     		</div>
 	</div>
 </div>
 
 <div class="display" id='display'>
-	<div class='dialog-title'><span id='title'></span></div>
-	<div class="dialog-body"><span id='kanji'></span></div>
-	<div class="dialog-body"><span id='kana'></span></div>
-	<div class="dialog-body"><span id='romaji'></span></div>
-	<div class="dialog-body"><span id='anglo'></span></div>
+	<div class='dialog-title' id='title'></div>
+	<div class="dialog-body" id='kanji'></div>
+	<div class="dialog-body" id='kana'></div>
+	<div class="dialog-body" id='romaji'></div>
+	<div class="dialog-body" id='anglo'></div>
+	<div class="dialog-buttons">
+		<button id="buttonEdit" class="button">EDIT</button>
+		<button id="buttonNextDone" class="button">DONE</button>
+    </div>
 </div>
 
 <div id="recordDialog" class="dialog-container">
     <div class="dialog">
-      <div class="dialog-title">Add word/phrase</div>
-      <div class="dialog-body">kanji <input type="text" id="kanjiField"/></div>
+      <div class="dialog-title" id='dialogTitle'>add word/phrase</div>
+      <div class="dialog-body"><span id='label'>kanji</span> <input type="text" id="wordField"/></div>
+      <!--div class="dialog-body">kanji <input type="text" id="kanjiField"/></div>
 	  <div class="dialog-body">kana <input type="text" id="kanaField"/></div>
 	  <div class="dialog-body">Romanji <input type="text" id="romajiField"/></div>
-	  <div class="dialog-body">English <input type="text" id="angloField"/></div>
+	  <div class="dialog-body">English <input type="text" id="angloField"/></div-->
       <div class="dialog-buttons">
-	  	<button id="buttonDelete" class="deleteButton">Delete</button>
-	  	<button id="buttonCancel" class="button">Cancel</button>
-      	<button id="buttonSave" class="button">Save</button>  
+	  	<button id="buttonDelete" class="deleteButton">DELETE</button>
+	  	<button id="buttonCancel" class="button">CANCEL</button>
+      	<button id="buttonNextSave" class="button">NEXT</button>  
       </div>
 	</div>
 </div>

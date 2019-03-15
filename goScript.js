@@ -3,13 +3,15 @@ function id(el) {
 	return document.getElementById(el);
 }
 
-// function() {
-  'use strict';
+'use strict';
 	
   // GLOBAL VARIABLES
 	var db;
 	var records=[];
 	var record={};
+	var step=0;
+	var mode='add';
+	var lang='English';
 	var recordIndex=-1;
 	var lastSave=null;
 	var resort=false;
@@ -17,22 +19,22 @@ function id(el) {
 
   // EVENT LISTENERS
 	
-  document.getElementById("main").addEventListener('click', function() {
+  id("main").addEventListener('click', function() {
   	id("menu").style.display="none";
   })
 
-  document.getElementById('buttonMenu').addEventListener('click', function() { // MENU BUTTON
-	var display = document.getElementById("menu").style.display;
+  id('buttonMenu').addEventListener('click', function() { // MENU BUTTON
+	var display = id("menu").style.display;
 	if(display == "block") id("menu").style.display = "none";
 	else id("menu").style.display = "block";
   });
 	
-  document.getElementById("import").addEventListener('click', function() { // IMPORT OPTION
+  id("import").addEventListener('click', function() { // IMPORT OPTION
   	console.log("IMPORT");
 	toggleDialog("importDialog", true);
   })
 	
-  document.getElementById('buttonCancelImport').addEventListener('click', function() { // CANCEL IMPORT DATA
+  id('buttonCancelImport').addEventListener('click', function() { // CANCEL IMPORT DATA
     toggleDialog('importDialog', false);
 	id("menu").style.display="none";
   });
@@ -69,7 +71,7 @@ function id(el) {
   	fileReader.readAsText(file);
   },false);
 	
-  document.getElementById("export").addEventListener('click', function() { // EXPORT FILE
+  id("export").addEventListener('click', function() { // EXPORT FILE
   	console.log("EXPORT");
 	var today= new Date();
 	var fileName = "nihongo" + today.getDate();
@@ -93,12 +95,13 @@ function id(el) {
 	id("menu").style.display="none";
   })
   
-  id('lookupButton').addEventListener('click', function() { // LOOKUP BUTTON
-  	var word=id('wordField').value;
+  id('findButton').addEventListener('click', function() { // FIND BUTTON
+  	var word=id('findField').value;
   	console.log("lookup "+word);
   	// alert("look up "+word);
   	var i=0;
   	var found=false;
+  	record={};
   	while((i<records.length)&&!found) {
   		if(records[i].romaji.indexOf(word)>=0) found=true;
   		if(records[i].anglo.indexOf(word)>=0) found=true;
@@ -112,45 +115,141 @@ function id(el) {
   		id('kana').innerHTML=records[i].kana;
   		id('romaji').innerHTML=records[i].romaji;
   		id('anglo').innerHTML=records[i].anglo;
-  
+  		record=records[i];
+  		recordIndex=i;
   	}
   	else {
   		id('kanji').innerHTML=id('kana').innerHTML=id('romaji').innerHTML=id('anglo').innerHTML='';
   		id('title').innerHTML="no matches";
 	}
-	id('wordField').value='';
+	id('findField').value='';
+	id('buttonNextDone').innerHTML='DONE';
 	id('display').style.display='block';
   })
-
-  document.getElementById('buttonNew').addEventListener('click', function() { // NEW BUTTON
-    // hide display if visible
+  
+  id('buttonEdit').addEventListener('click', function() { // EDIT word/phrase
+  	id('display').style.display='none';
+  	mode='edit';
+  	id('wordField').value=record.kanji;
+  	step=1;
+  	id("buttonDelete").disabled=false;
+	id('buttonDelete').style.color='red';
+	toggleDialog('recordDialog', true);
+  })
+  
+  id('buttonNextDone').addEventListener('click', function() { // NEXT/DONE
+  	if(id('buttonNextDone').innerHTML=='DONE') id('display').style.display='none';
+  	// else SHOW NEXT FLASHCARD
+  	else { // flashcards
+  		if((lang=='Japanese')&&(step<4)) { // reveal words one at a time
+  			step++;
+  			if(step==2) {id('kana').innerHTML=record.kana}
+  			else if(step==3) {id('romaji').innerHTML=record.romaji}
+  			else id('anglo').innerHTML=record.anglo;
+  		}
+  		else if((lang=='English')&&(step==4)) { // reveal all Japanese at once
+  			id('kanji').innerHTML=record.kanji;
+  			id('kana').innerHTML=record.kana;
+  			id('romaji').innerHTML=record.romaji;
+  			step=0;
+  		}
+  		else flashcard();
+  	}
+  })
+  
+  id('nihongoButton').addEventListener('click', function() { // JAPANESE flashcards
+	id('title').innerHTML='flashcard';
+	id('buttonNextDone').innerHTML='NEXT';
+	lang='Japanese';
+	id('display').style.display='block';
+	flashcard();
+  })
+  
+  id('angloButton').addEventListener('click', function() { // ENGLISH flashcards
+	id('title').innerHTML='flashcard';
+	id('buttonNextDone').innerHTML='NEXT';
+	lang='English';
+	id('display').style.display='block';
+	flashcard();
+  })
+  
+  function flashcard() {
+  	var n=records.length;
+	console.log(n+" words");
+  	var i=Math.random();
+  	i=Math.floor(i*n);
+  	console.log("record "+i);
+  	record=records[i];
+  	recordIndex=i;
+  	if(lang=='Japanese') {
+  		id('kanji').innerHTML=record.kanji; // UNLESS NO KANJI - THEN USE KANA
+  		id('kana').innerHTML=id('romaji').innerHTML=id('anglo').innerHTML='-';
+  		step=1;
+  	}
+  	else {
+  		id('anglo').innerHTML=record.anglo;
+  		id('kanji').innerHTML=id('kana').innerHTML=id('romaji').innerHTML='-';
+  		step=4;	
+  	}
+  }
+  
+  id('buttonAdd').addEventListener('click', function() { // ADD word/phrase BUTTON
     id('display').style.display='none';
-    // show the dialog
-    // alert("add new word/phrase");
-	// console.log("show add diaog with today's date,  blank fields and delete button disabled");
-    toggleDialog('recordDialog', true);
-	id('kanjiField').value=id('kanaField').value=id('romajiField').value=id('angloField').value="";
+    mode='add';
+    step=1;
+    id('label').innerHTML='kanji';
+    id('findField').value='';
 	record={};
 	recordIndex=-1;
-	resort=false;
+	id('dialogTitle').innerHTML="add word/phrase";
 	id("buttonDelete").disabled=true;
 	id('buttonDelete').style.color='gray';
+	toggleDialog('recordDialog', true);
   });
+  
 
-  document.getElementById('buttonSave').addEventListener('click', function() { // SAVE NEW/EDITED RECORD
+  id('buttonNextSave').addEventListener('click', function() { // NEXT field or SAVE NEW/EDITED RECORD
+	console.log("input: "+id('wordField').value);
+	if(id('buttonNextSave').innerHTML=='NEXT') {
+		if(step==1) { // kanji
+			record.kanji=id('wordField').value;
+			console.log('kanji:'+record.kanji);
+			id('dialogTitle').innerHTML=record.kanji;
+			step++;
+			id('label').innerHTML='kana';
+			if(mode=='edit') id('wordField').value=record.kana;
+			else id('wordField').value='';
+		}
+		else if(step==2) { // kana
+			record.kana=id('wordField').value.split(",");
+			console.log('kana:'+record.kana);
+			id('dialogTitle').innerHTML+=" "+record.kana;
+			step++;
+			id('label').innerHTML='romaji';
+			if(mode=='edit') id('wordField').value=record.romaji;
+			else id('wordField').value='';
+		}
+		else if(step==3) { // romaji
+			record.romaji=id('wordField').value.split(",");
+			console.log('romaji:'+record.romaji);
+			id('dialogTitle').innerHTML+=" "+record.romaji;
+			step++;
+			id('label').innerHTML='English';
+			if(mode=='edit') id('wordField').value=record.anglo;
+			else id('wordField').value='';
+			id('buttonNextSave').innerHTML='SAVE';
+		}
+		return;
+	}
+	// reach here after entering English word (step 4)
+	record.anglo=id('wordField').value.split(",");
+	console.log('anglo:'+record.anglo);
+	id('dialogTitle').innerHTML+=" "+record.anglo; // ****** no point? ******
 	console.log("SAVE");
-	
-	record.kanji=id('kanjiField').value;
-	// record.level=parseInt(id('levelField').value);
-	record.kana=record.kana=id('kanaField').value.split(",");
-	record.romaji=id('romajiField').value.split(",");
-	record.anglo=id('angloField').value.split(",");
     toggleDialog('recordDialog', false);
+    console.log("save "+record.kanji+"; "+record.kana+"; "+record.romaji+"; "+record.anglo);
     
-    
-   console.log("save "+record.kanji+"; "+record.kana+"; "+record.romaji+"; "+record.anglo);
-    
-    // check if this word/phrase is already in the recordws array - if so display alert
+    // check if this word/phrase is already in the records array - if so display alert
     
 	var dbTransaction = db.transaction('go',"readwrite");
 	console.log("transaction ready");
@@ -190,12 +289,12 @@ function id(el) {
 	}
   });
 
-  document.getElementById('buttonCancel').addEventListener('click', function() { // CANCEL NEW/EDIT RECORD
+  id('buttonCancel').addEventListener('click', function() { // CANCEL NEW/EDIT RECORD
     // Close the add new jotting dialog
     toggleDialog('recordDialog', false);
   });
   
-  document.getElementById('buttonDelete').addEventListener('click', function() { // DELETE RECORD
+  id('buttonDelete').addEventListener('click', function() { // DELETE RECORD
 	toggleDialog('recordDialog', false);
 	console.log("delete record "+record.id);
 	var dbTransaction = db.transaction("go","readwrite");

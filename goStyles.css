@@ -41,26 +41,23 @@ body {
 
 button {
 	height: 36px;
-	font-size: 1.2em;
+	font-size: 1em;
 	vertical-align: bottom;
 	background-color: white;
 	border: 1px solid black;
 }
 
 input {
-	width: 100%;
+	width: 70%;
 	height: 40px;
 	background-color: white;
 	border: 1px solid gray;
-	font-size: 1.5em;
+	padding-left: 5px;
+	font-size: 1.2em;
 }
 
 #fileChooser {
 	margin: 20px;
-}
-
-#litresField {
-	height: 32px;
 }
  
 .header {
@@ -106,6 +103,7 @@ input {
     height: 24px;
 	  margin-left: 10px;
     margin-right: 10px;
+    margin-top: 4px;
     overflow: hidden;
     opacity: 1;
     -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
@@ -114,8 +112,12 @@ input {
     outline: none;
     cursor: pointer;
  }
- .header #buttonMenu{
+ .header #buttonMenu {
     background: url(menuButton24px.svg) center center no-repeat;
+ }
+ .header #buttonAdd {
+   background: url(newButton24px.svg) center center no-repeat;
+   margin-right: 20px;
  }
 
 .header_title {
@@ -136,25 +138,28 @@ input {
           flex: 1;
   overflow-x: hidden;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; }
-  
-.round-button {
-	display: block;
-	position: fixed;
-	width: 50px;
-	height: 50px;
-	border: 0px solid #222;
-	border-radius: 50%;
-	background: #006644;
-	box-shadow: 0,0,3px,gray;
-	z-index: 50;
+  -webkit-overflow-scrolling: touch;
 }
-
-.round-button img {
-	display: block;
-	width: 24px;
-	height: 24px;
-	padding: 13px;
+  
+  #findButton {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-top: 4px;
+    overflow: hidden;
+    opacity: 1;
+    -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
+    transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: url(searchButton24px.svg) center center no-repeat;
+  }
+  
+.flashcardButton {
+  height: 50px;
+  font-size: 1.5em;
 }
 
 #buttonNew {
@@ -165,7 +170,8 @@ input {
 #main {
     width: 100%;
     position: relative;
-    top: 40px;
+    top: 50px;
+    padding: 10px;
     background-color: silver;
 }
 
@@ -184,10 +190,10 @@ input {
   background: #DDD;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.24), 0 14px 28px rgba(0, 0, 0, 0.48);
   position: absolute;
-  left: 10%;
-  top: 250px;
+  margin: 8%;
+  top: 200px;
   width: 80%;
-  padding: 5px;
+  padding: 10px;
   font-size: x-large;
   display: none;
 }
@@ -252,10 +258,7 @@ input {
 
 .button {
 	background-color: white;
-	font-size: larger;
 }
 .deleteButton {
 	color: red;
-	margin-right: 50px;
-	font-size: larger;
 }
