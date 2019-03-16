@@ -111,9 +111,10 @@ function id(el) {
   // FIND BUTTON
   
   id('findButton').addEventListener('click', function() {
-  	var word=id('findField').value.toLowerCase();
+  	var word=id('findField').value;
+  	// var word=id('findField').value.toLowerCase();
   	console.log("lookup "+word);
-  	// alert("look up "+word);
+  	alert("find "+word);
   	var i=0;
   	var found=false;
   	record={};
@@ -342,7 +343,7 @@ function id(el) {
   id('buttonDelete').addEventListener('click', function() {
 	// toggleDialog('recordDialog', false);
 	// id('recordDialog').style.display='none';
-	console.log("delete record "+record.id);
+	alert("delete record "+record.id);
 	var dbTransaction = db.transaction("go","readwrite");
 	console.log("transaction ready");
 	var dbObjectStore = dbTransaction.objectStore("go");
@@ -350,6 +351,7 @@ function id(el) {
 	request.onsuccess = function(event) {
 		records.splice(recordIndex,1) // remove record form records array
 		console.log("record "+recordIndex+" (id "+record.id+") deleted. "+records.length+" records");
+		id('recordDialog').style.display='none';
 		// fillList();
 	};
 	request.onerror = function(event) {console.log("error deleting record "+record.id);};
