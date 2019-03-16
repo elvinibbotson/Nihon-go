@@ -108,7 +108,9 @@ function id(el) {
 	id("menu").style.display="none";
   })
   
-  id('findButton').addEventListener('click', function() { // FIND BUTTON
+  // FIND BUTTON
+  
+  id('findButton').addEventListener('click', function() {
   	var word=id('findField').value.toLowerCase();
   	console.log("lookup "+word);
   	// alert("look up "+word);
@@ -399,14 +401,19 @@ function id(el) {
 		records=[];
 		console.log("records array ready");
 		var request = dbObjectStore.openCursor();
+		var words="";
 		request.onsuccess = function(event) {  
 			var cursor = event.target.result;  
     			if (cursor) {
 					records.push(cursor.value);
 					console.log("record "+cursor.key+", id: "+cursor.value.id+": "+cursor.value.kanji+"; "+cursor.value.kana+"; "+cursor.value.romaji+"; "+cursor.value.anglo);
+					words+=cursor.value.romaji;
+					words+="; ";
 					cursor.continue();  
     			}
-			else {console.log("No more entries!");
+			else {
+				console.log("No more entries!");
+				alert("words: "+words);
 			}
 		};
 	};
