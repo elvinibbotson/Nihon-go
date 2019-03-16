@@ -22,24 +22,34 @@ function id(el) {
   id("main").addEventListener('click', function() {
   	id("menu").style.display="none";
   })
+  
+  // MENU BUTTON
 
-  id('buttonMenu').addEventListener('click', function() { // MENU BUTTON
+  id('buttonMenu').addEventListener('click', function() {
 	var display = id("menu").style.display;
 	if(display == "block") id("menu").style.display = "none";
 	else id("menu").style.display = "block";
   });
+  
+  // IMPORT OPTION
 	
-  id("import").addEventListener('click', function() { // IMPORT OPTION
+  id("import").addEventListener('click', function() {
   	console.log("IMPORT");
-	toggleDialog("importDialog", true);
+	// toggleDialog("importDialog", true);
+	id('importDialog').style.display='block';
   })
+  
+  // CANCEL IMPORT DATA
 	
-  id('buttonCancelImport').addEventListener('click', function() { // CANCEL IMPORT DATA
-    toggleDialog('importDialog', false);
+  id('buttonCancelImport').addEventListener('click', function() {
+    // toggleDialog('importDialog', false);
+    id('importDialog').style.display='none';
 	id("menu").style.display="none";
   });
-	
-  id("fileChooser").addEventListener('change', function() { // IMPORT FILE
+
+	// IMPORT FILE
+
+  id("fileChooser").addEventListener('change', function() {
 	var file=id('fileChooser').files[0];
 	console.log("file: "+file+" name: "+file.name);
 	var fileReader=new FileReader();
@@ -64,14 +74,17 @@ function id(el) {
 			};
 			request.onerror = function(e) {console.log("error adding record");};
 		};
-		toggleDialog('fileChooserDialog',false);
+		// toggleDialog('fileChooserDialog',false);
+		id('fileChooserDialog').style.display='none';
 		id("menu").style.display="none";
 		alert("records imported - restart");		
   	});
   	fileReader.readAsText(file);
   },false);
+  
+  // EXPORT FILE
 	
-  id("export").addEventListener('click', function() { // EXPORT FILE
+  id("export").addEventListener('click', function() {
   	console.log("EXPORT");
 	var today= new Date();
 	var fileName = "nihongo" + today.getDate();
@@ -96,7 +109,7 @@ function id(el) {
   })
   
   id('findButton').addEventListener('click', function() { // FIND BUTTON
-  	var word=id('findField').value;
+  	var word=id('findField').value.toLowerCase();
   	console.log("lookup "+word);
   	// alert("look up "+word);
   	var i=0;
@@ -105,8 +118,7 @@ function id(el) {
   	while((i<records.length)&&!found) {
   		if(records[i].romaji.indexOf(word)>=0) found=true;
   		if(records[i].anglo.indexOf(word)>=0) found=true;
-  		// if((word==records[i].romaji)||(word==record[i].anglo)) found=true;
-  		if(!found) i++;
+   		if(!found) i++;
   	}
   	console.log("found is "+found+" record is "+i);
   	if(found) {
@@ -127,17 +139,22 @@ function id(el) {
 	id('display').style.display='block';
   })
   
-  id('buttonEdit').addEventListener('click', function() { // EDIT word/phrase
+  // EDIT word/phrase
+  
+  id('buttonEdit').addEventListener('click', function() {
   	id('display').style.display='none';
   	mode='edit';
   	id('wordField').value=record.kanji;
   	step=1;
   	id("buttonDelete").disabled=false;
 	id('buttonDelete').style.color='red';
-	toggleDialog('recordDialog', true);
+	// toggleDialog('recordDialog', true);
+	id('recordDialog').style.display='block';
   })
   
-  id('buttonNextDone').addEventListener('click', function() { // NEXT/DONE
+  // NEXT/DONE
+  
+  id('buttonNextDone').addEventListener('click', function() {
   	if(id('buttonNextDone').innerHTML=='DONE') id('display').style.display='none';
   	// else SHOW NEXT FLASHCARD
   	else { // flashcards
@@ -153,11 +170,13 @@ function id(el) {
   			id('romaji').innerHTML=record.romaji;
   			step=0;
   		}
-  		else flashcard();
+  		else flashcard(recordIndex);
   	}
   })
   
-  id('nihongoButton').addEventListener('click', function() { // JAPANESE flashcards
+  // JAPANESE flashcards
+  
+  id('nihongoButton').addEventListener('click', function() {
 	id('title').innerHTML='flashcard';
 	id('buttonNextDone').innerHTML='NEXT';
 	lang='Japanese';
@@ -165,7 +184,9 @@ function id(el) {
 	flashcard();
   })
   
-  id('angloButton').addEventListener('click', function() { // ENGLISH flashcards
+  // ENGLISH flashcards
+  
+  id('angloButton').addEventListener('click', function() {
 	id('title').innerHTML='flashcard';
 	id('buttonNextDone').innerHTML='NEXT';
 	lang='English';
@@ -173,18 +194,29 @@ function id(el) {
 	flashcard();
   })
   
-  function flashcard() {
+  // RANDOM FLASHCARD
+  
+  function flashcard(lastIndex) {
   	var n=records.length;
 	console.log(n+" words");
   	var i=Math.random();
+  	console.log('random: '+i);
   	i=Math.floor(i*n);
   	console.log("record "+i);
+  	if(i==lastIndex) flashcard(lastIndex); // avoid getting same word twice in succession
   	record=records[i];
   	recordIndex=i;
   	if(lang=='Japanese') {
-  		id('kanji').innerHTML=record.kanji; // UNLESS NO KANJI - THEN USE KANA
-  		id('kana').innerHTML=id('romaji').innerHTML=id('anglo').innerHTML='-';
-  		step=1;
+  		id('kanji').innerHTML=record.kanji;
+  		if(record.kanji) {
+  			id('kana').innerHTML='-';
+  			step=1;
+  		}
+  		else { // no kanji
+  			id('kana').innerHTML=record.kana;
+  			step=2;
+  		}
+  		id('romaji').innerHTML=id('anglo').innerHTML='-';
   	}
   	else {
   		id('anglo').innerHTML=record.anglo;
@@ -193,22 +225,27 @@ function id(el) {
   	}
   }
   
-  id('buttonAdd').addEventListener('click', function() { // ADD word/phrase BUTTON
+  // ADD word/phrase BUTTON
+  
+  id('buttonAdd').addEventListener('click', function() {
     id('display').style.display='none';
     mode='add';
     step=1;
     id('label').innerHTML='kanji';
-    id('findField').value='';
+    id('wordField').value='';
 	record={};
 	recordIndex=-1;
 	id('dialogTitle').innerHTML="add word/phrase";
 	id("buttonDelete").disabled=true;
 	id('buttonDelete').style.color='gray';
-	toggleDialog('recordDialog', true);
+	id('buttonNextSave').innerHTML='NEXT';
+	// toggleDialog('recordDialog', true);
+	id('recordDialog').style.display='block';
   });
   
+  // NEXT field or SAVE NEW/EDITED RECORD
 
-  id('buttonNextSave').addEventListener('click', function() { // NEXT field or SAVE NEW/EDITED RECORD
+  id('buttonNextSave').addEventListener('click', function() {
 	console.log("input: "+id('wordField').value);
 	if(id('buttonNextSave').innerHTML=='NEXT') {
 		if(step==1) { // kanji
@@ -230,7 +267,7 @@ function id(el) {
 			else id('wordField').value='';
 		}
 		else if(step==3) { // romaji
-			record.romaji=id('wordField').value.split(",");
+			record.romaji=id('wordField').value.toLowerCase().split(",");
 			console.log('romaji:'+record.romaji);
 			id('dialogTitle').innerHTML+=" "+record.romaji;
 			step++;
@@ -242,11 +279,12 @@ function id(el) {
 		return;
 	}
 	// reach here after entering English word (step 4)
-	record.anglo=id('wordField').value.split(",");
+	record.anglo=id('wordField').value.toLowerCase().split(",");
 	console.log('anglo:'+record.anglo);
 	id('dialogTitle').innerHTML+=" "+record.anglo; // ****** no point? ******
 	console.log("SAVE");
-    toggleDialog('recordDialog', false);
+    // toggleDialog('recordDialog', false);
+    id('recordDialog').style.display='none';
     console.log("save "+record.kanji+"; "+record.kana+"; "+record.romaji+"; "+record.anglo);
     
     // check if this word/phrase is already in the records array - if so display alert
@@ -288,14 +326,20 @@ function id(el) {
 		request.onerror = function(event) {console.log("error updating record "+record.id);};
 	}
   });
+  
+  // CANCEL NEW/EDIT RECORD
 
-  id('buttonCancel').addEventListener('click', function() { // CANCEL NEW/EDIT RECORD
+  id('buttonCancel').addEventListener('click', function() {
     // Close the add new jotting dialog
-    toggleDialog('recordDialog', false);
+    // toggleDialog('recordDialog', false);
+    id('recordDialog').style.display='none';
   });
   
-  id('buttonDelete').addEventListener('click', function() { // DELETE RECORD
-	toggleDialog('recordDialog', false);
+  // DELETE RECORD
+  
+  id('buttonDelete').addEventListener('click', function() {
+	// toggleDialog('recordDialog', false);
+	// id('recordDialog').style.display='none';
 	console.log("delete record "+record.id);
 	var dbTransaction = db.transaction("go","readwrite");
 	console.log("transaction ready");
@@ -308,7 +352,7 @@ function id(el) {
 	};
 	request.onerror = function(event) {console.log("error deleting record "+record.id);};
   });
-
+/*
   function toggleDialog(d,visible) { // SHOW/HIDE DIALOG
 	if(d == 'importDialog') {
 		if (visible) id("importDialog").classList.add('dialog-container--visible');
@@ -323,7 +367,8 @@ function id(el) {
 		else id("fileChooserDialog").classList.remove('dialog-container--visible');
 	}
   };
-  
+*/
+/*
   function openRecord() { // OPEN SELECTED RECORD FOR EDITING
 	// console.log("open record "+recordIndex);
 	record=records[recordIndex];
@@ -337,8 +382,9 @@ function id(el) {
 	id('buttonDelete').disabled=false;
 	id('buttonDelete').style.color='red';
   } 
-
+*/
   // START-UP CODE
+  
   console.log("STARTING");
   var defaultData = {records: [{kanji:"字", level:1, kana:"じ ", romaji:"ji", anglo:"character"}]}
   var request = window.indexedDB.open("nihongoDB");
@@ -361,9 +407,6 @@ function id(el) {
 					cursor.continue();  
     			}
 			else {console.log("No more entries!");
-			// records.sort(function(a,b) { return Date.parse(b.date)-Date.parse(a.date)}); // reverse date order (latest first)
-			records.sort(function(a,b) { return Date.parse(a.date)-Date.parse(b.date)}); // sort by date
-  			// fillList();
 			}
 		};
 	};
