@@ -17,6 +17,6 @@
   "start_url": "/Nihon-go/",
   "display": "standalone",
   "orientation":"portrait",
-  "background_color": "#006644",
-  "theme_color": "#006644"
+  "background_color": "#666666",
+  "theme_color": "#666666"
 }
