@@ -148,6 +148,8 @@ function id(el) {
   id('buttonEdit').addEventListener('click', function() {
   	id('display').style.display='none';
   	mode='edit';
+  	id('dialogTitle').innerHTML="edit word/phrase";
+    id('label').innerHTML='kanji';
   	id('wordField').value=record.kanji;
   	step=1;
   	id('buttonNextSave').innerHTML='NEXT';
