@@ -10,6 +10,8 @@ function id(el) {
 	var records=[];
 	var record={};
 	var step=0;
+	var cardIndex=0;
+	var cardStep=0;
 	var mode='add';
 	var lang='English';
 	var recordIndex=-1;
@@ -113,8 +115,7 @@ function id(el) {
   id('findButton').addEventListener('click', function() {
   	var word=id('findField').value;
   	// var word=id('findField').value.toLowerCase();
-  	console.log("lookup "+word);
-  	alert("find "+word);
+  	console.log("find "+word);
   	var i=0;
   	var found=false;
   	record={};
@@ -149,10 +150,10 @@ function id(el) {
   	mode='edit';
   	id('wordField').value=record.kanji;
   	step=1;
+  	id('buttonNextSave').innerHTML='NEXT';
   	id("buttonDelete").disabled=false;
-	id('buttonDelete').style.color='red';
-	// toggleDialog('recordDialog', true);
-	id('recordDialog').style.display='block';
+		id('buttonDelete').style.color='red';
+		id('recordDialog').style.display='block';
   })
   
   // NEXT/DONE
@@ -184,6 +185,7 @@ function id(el) {
 	id('buttonNextDone').innerHTML='NEXT';
 	lang='Japanese';
 	id('display').style.display='block';
+	cardIndex=0;
 	flashcard();
   })
   
@@ -194,21 +196,19 @@ function id(el) {
 	id('buttonNextDone').innerHTML='NEXT';
 	lang='English';
 	id('display').style.display='block';
+	cardIndex=0;
 	flashcard();
   })
   
   // RANDOM FLASHCARD
   
-  function flashcard(lastIndex) {
-  	var n=records.length;
-	console.log(n+" words");
-  	var i=Math.random();
-  	console.log('random: '+i);
-  	i=Math.floor(i*n);
-  	console.log("record "+i);
-  	if(i==lastIndex) flashcard(lastIndex); // avoid getting same word twice in succession
-  	record=records[i];
-  	recordIndex=i;
+  function flashcard() {
+  	if(cardIndex==0) {
+  		cardStep=1+Math.floor(Math.random()*5); // flashcards step by 1-5 words
+  	}
+  	console.log("flashcard "+cardIndex+" step by "+cardStep);
+  	recordIndex=cardIndex; // NEEDED???
+  	record=records[cardIndex];
   	if(lang=='Japanese') {
   		id('kanji').innerHTML=record.kanji;
   		if(record.kanji) {
@@ -226,6 +226,7 @@ function id(el) {
   		id('kanji').innerHTML=id('kana').innerHTML=id('romaji').innerHTML='-';
   		step=4;	
   	}
+  	cardIndex=(cardIndex+cardStep)%records.length; // ready for next flashcard
   }
   
   // ADD word/phrase BUTTON
