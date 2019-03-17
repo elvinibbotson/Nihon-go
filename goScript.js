@@ -113,8 +113,7 @@ function id(el) {
   // FIND BUTTON
   
   id('findButton').addEventListener('click', function() {
-  	var word=id('findField').value;
-  	// var word=id('findField').value.toLowerCase();
+  	var word=id('findField').value.toLowerCase();
   	console.log("find "+word);
   	var i=0;
   	var found=false;
@@ -315,7 +314,6 @@ function id(el) {
 			}
 			records.splice(i,0,record);
 			qFocus=null;
-			// fillList();
 		};
 		request.onerror = function(event) {console.log("error adding new record");};
 	}
@@ -323,14 +321,16 @@ function id(el) {
 		var request = dbObjectStore.put(record); // update record in database
 		request.onsuccess = function(event)  {
 			console.log("record "+record.id+" updated");
-			if(resort) { // if date altered need to re-sort records
-				console.log("re-sort");
-				records.sort(function(a,b) { return Date.parse(b.date)-Date.parse(a.date)}); // reverse date order (latest first)
-			}
-			// fillList();
 		};
 		request.onerror = function(event) {console.log("error updating record "+record.id);};
 	}
+	id('title').innerHTML="saved";
+  id('kanji').innerHTML=record.kanji;
+  id('kana').innerHTML=record.kana;
+  id('romaji').innerHTML=record.romaji;
+  id('anglo').innerHTML=record.anglo;
+  id('buttonNextDone').innerHTML='DONE';
+  id('display').style.display='block';
   });
   
   // CANCEL NEW/EDIT RECORD
