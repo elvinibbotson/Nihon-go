@@ -359,37 +359,7 @@ function id(el) {
 	};
 	request.onerror = function(event) {console.log("error deleting record "+record.id);};
   });
-/*
-  function toggleDialog(d,visible) { // SHOW/HIDE DIALOG
-	if(d == 'importDialog') {
-		if (visible) id("importDialog").classList.add('dialog-container--visible');
-		else id("importDialog").classList.remove('dialog-container--visible');
-	}
-	else if(d == 'recordDialog') {
-		if (visible) id("recordDialog").classList.add('dialog-container--visible');
-		else id("recordDialog").classList.remove('dialog-container--visible');
-	}
-	else if(d=='fileChooserDialog') {
-		if (visible) id("fileChooserDialog").classList.add('dialog-container--visible');
-		else id("fileChooserDialog").classList.remove('dialog-container--visible');
-	}
-  };
-*/
-/*
-  function openRecord() { // OPEN SELECTED RECORD FOR EDITING
-	// console.log("open record "+recordIndex);
-	record=records[recordIndex];
-	console.log("open record "+recordIndex+"; id: "+record.id+" "+record.date+"; "+record.litres+"litres @ "+record.miles+"miles");
-	toggleDialog('recordDialog', true);
-	id('kanjiField').value=record.kanji;
-	id('levelField').value=record.level;
-	id('kanaField').value=record.kana;
-	id('romajiField').value=record.romaji;
-	id('angloField').value=record.anglo;
-	id('buttonDelete').disabled=false;
-	id('buttonDelete').style.color='red';
-  } 
-*/
+
   // START-UP CODE
   
   console.log("STARTING");
@@ -418,7 +388,7 @@ function id(el) {
     			}
 			else {
 				console.log("No more entries!");
-				alert("words: "+words);
+				console.log("words: "+words);
 			}
 		};
 	};
