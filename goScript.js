@@ -175,7 +175,7 @@ function id(el) {
   			id('romaji').innerHTML=record.romaji;
   			step=0;
   		}
-  		else flashcard(recordIndex);
+  		else flashcard(false);
   	}
   })
   
@@ -186,8 +186,8 @@ function id(el) {
 	id('buttonNextDone').innerHTML='NEXT';
 	lang='Japanese';
 	id('display').style.display='block';
-	cardIndex=0;
-	flashcard();
+	// cardIndex=Math.floor(Math.random()*records.length);
+	flashcard(true);
   })
   
   // ENGLISH flashcards
@@ -197,17 +197,20 @@ function id(el) {
 	id('buttonNextDone').innerHTML='NEXT';
 	lang='English';
 	id('display').style.display='block';
-	cardIndex=0;
-	flashcard();
+	// cardIndex=Math.floor(Math.random()*records.length);
+	flashcard(true);
   })
   
   // RANDOM FLASHCARD
   
-  function flashcard() {
-  	if(cardIndex==0) {
+  function flashcard(first) {
+  	if(first) {
+  		cardIndex=Math.floor(Math.random()*records.length);
   		cardStep=1+Math.floor(Math.random()*5); // flashcards step by 1-5 words
+  		console.log("flashcard "+cardIndex+" step by "+cardStep);
+
   	}
-  	console.log("flashcard "+cardIndex+" step by "+cardStep);
+  	console.log("flashcard "+cardIndex);
   	recordIndex=cardIndex; // NEEDED???
   	record=records[cardIndex];
   	if(lang=='Japanese') {
