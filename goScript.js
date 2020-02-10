@@ -171,7 +171,7 @@ function id(el) {
         finds=[];
         id('buttonNextDone').innerHTML='DONE';
     }
-    
+    id('display').style.display='block';
   }
   
   // EDIT word/phrase
@@ -194,6 +194,7 @@ function id(el) {
   id('buttonNextDone').addEventListener('click', function() {
   	if(id('buttonNextDone').innerHTML=='DONE') id('display').style.display='none';
   	else if(find>=0) { // NEW code to show next match
+  	    find++;
   	    showMatch();
   	}
   	// else SHOW NEXT FLASHCARD
