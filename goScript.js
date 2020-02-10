@@ -167,6 +167,7 @@ function id(el) {
   	id('anglo').innerHTML=record.anglo;
     if(find==finds.length-1) { // last match
         find=-1; // no more matches
+        finds=[];
         id('buttonNextDone').innerHTML='DONE';
     }
     
