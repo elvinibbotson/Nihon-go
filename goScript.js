@@ -91,7 +91,7 @@ function id(el) {
   id("export").addEventListener('click', function() {
   	console.log("EXPORT");
 	var today= new Date();
-	var fileName = "nihongo" + today.getDate();
+	var fileName = "tango" + today.getDate();
 	var n = today.getMonth();
 	// fileName += months.substr(n*3,3);
 	var n = today.getFullYear() % 100;
