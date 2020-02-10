@@ -238,6 +238,7 @@ function id(el) {
   	record=records[cardIndex];
   	if(lang=='Japanese') {
   		id('kanji').innerHTML=record.kanji;
+  		id('title').innerHTML='kanji';
   		if(record.kanji) {
   			id('kana').innerHTML='-';
   			step=1;
