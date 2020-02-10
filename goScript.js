@@ -406,7 +406,7 @@ function id(el) {
 			else {
 				console.log("No more entries!");
 				console.log("words: "+words);
-				// alert(records.length+" loaded.\n+ add vocabulary using...\nkanji (skip if none) and hiragana/katakana using Japanese keyboard, and romaji and English using English keyboard\nTest yourself using Japanese and English flashcards.");
+				id('wordcount').innerHTML=records.length;
 			}
 		};
 	};
