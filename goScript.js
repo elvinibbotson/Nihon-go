@@ -120,7 +120,7 @@ function id(el) {
   	var i=0;
   	var found=false;
   	record={};
-  	while(i<records.length) { // check every records
+  	while(i<records.length) { // check every record
   	    if((records[i].romaji.indexOf(word)>=0)||(records[i].anglo.indexOf(word)>=0)) {
   	        found=true;
   	        finds.push(i); // add record index to finds list
@@ -129,6 +129,7 @@ function id(el) {
   	}
   	if(found) { // if any matches...
   	    showMatch(); // show first match
+  	    alert(finds.length+' matches after '+i+' words');
   	}
   	else {
   		id('kanji').innerHTML=id('kana').innerHTML=id('romaji').innerHTML=id('anglo').innerHTML='';
