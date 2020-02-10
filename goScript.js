@@ -18,6 +18,8 @@ function id(el) {
 	var lastSave=null;
 	var resort=false;
 	var qFocus=null;
+	var finds=[]; // NEW: list of words matching find term
+	var find=-1; // index for matching finds (-1 if none)
 
   // EVENT LISTENERS
 	
@@ -118,6 +120,7 @@ function id(el) {
   	var i=0;
   	var found=false;
   	record={};
+  	/* old routine - just finds first match
   	while((i<records.length)&&!found) {
   		if(records[i].romaji.indexOf(word)>=0) found=true;
   		if(records[i].anglo.indexOf(word)>=0) found=true;
@@ -133,6 +136,18 @@ function id(el) {
   		record=records[i];
   		recordIndex=i;
   	}
+  	*/
+  	while(i<records.length) { // check every records
+  	    if((records[i].romaji.indexOf(word)>=0)||(records[i].anglo.indexOf(word)>=0)) {
+  	        found=true;
+  	        finds+=i; // add record index to finds list
+  	    }
+   		i++;
+  	}
+  	if(found) { // if any matches...
+  	    find=finds[0];
+  	    showMatch(); // show first match
+  	}
   	else {
   		id('kanji').innerHTML=id('kana').innerHTML=id('romaji').innerHTML=id('anglo').innerHTML='';
   		id('title').innerHTML="no matches";
@@ -141,6 +156,20 @@ function id(el) {
 	id('buttonNextDone').innerHTML='DONE';
 	id('display').style.display='block';
   })
+  
+  function showMatch() {
+    recordIndex=find; // NEEDED???
+  	record=records[recordIndex];
+  	id('kanji').innerHTML=record.kanji;
+  	id('kana').innerHTML=record.kana;
+  	id('romaji').innerHTML=record.romaji;
+  	id('anglo').innerHTML=record.anglo;
+    if(find==finds.length-1) { // last match
+        find=-1; // no more matches
+        id('buttonNextDone').innerHTML='DONE';
+    }
+    
+  }
   
   // EDIT word/phrase
   
@@ -161,6 +190,9 @@ function id(el) {
   
   id('buttonNextDone').addEventListener('click', function() {
   	if(id('buttonNextDone').innerHTML=='DONE') id('display').style.display='none';
+  	else if(find>=0) { // NEW code to show next match
+  	    showMatch();
+  	}
   	// else SHOW NEXT FLASHCARD
   	else { // flashcards
   		if((lang=='Japanese')&&(step<4)) { // reveal words one at a time
