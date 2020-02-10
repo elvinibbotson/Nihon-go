@@ -140,7 +140,7 @@ function id(el) {
   	while(i<records.length) { // check every records
   	    if((records[i].romaji.indexOf(word)>=0)||(records[i].anglo.indexOf(word)>=0)) {
   	        found=true;
-  	        finds+=i; // add record index to finds list
+  	        finds.push(i); // add record index to finds list
   	    }
    		i++;
   	}
@@ -158,6 +158,7 @@ function id(el) {
   })
   
   function showMatch() {
+      alert('show match '+find+" of "+finds.length);
     recordIndex=find; // NEEDED???
   	record=records[recordIndex];
   	id('kanji').innerHTML=record.kanji;
