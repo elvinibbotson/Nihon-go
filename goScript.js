@@ -330,6 +330,7 @@ function id(el) {
 			}
 			records.splice(i,0,record);
 			qFocus=null;
+			id('wordcount').innerHTML=records.length;
 		};
 		request.onerror = function(event) {console.log("error adding new record");};
 	}
@@ -405,7 +406,7 @@ function id(el) {
 			else {
 				console.log("No more entries!");
 				console.log("words: "+words);
-				alert(records.length+" loaded.\n+ add vocabulary using...\nkanji (skip if none) and hiragana/katakana using Japanese keyboard, and romaji and English using English keyboard\nTest yourself using Japanese and English flashcards.");
+				// alert(records.length+" loaded.\n+ add vocabulary using...\nkanji (skip if none) and hiragana/katakana using Japanese keyboard, and romaji and English using English keyboard\nTest yourself using Japanese and English flashcards.");
 			}
 		};
 	};
