@@ -146,6 +146,7 @@ function id(el) {
   	}
   	if(found) { // if any matches...
   	    find=finds[0];
+  	    id('buttonNextDone').innerHTML='NEXT';
   	    showMatch(); // show first match
   	}
   	else {
