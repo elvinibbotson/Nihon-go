@@ -155,7 +155,7 @@ function id(el) {
 	}
 	id('findField').value='';
 	// id('buttonNextDone').innerHTML='DONE';
-	// id('display').style.display='block';
+	id('display').style.display='block';
   })
   
   function showMatch() {
@@ -167,11 +167,12 @@ function id(el) {
   	id('romaji').innerHTML=record.romaji;
   	id('anglo').innerHTML=record.anglo;
     if(find==finds.length-1) { // last match
+        alert('last match');
         find=-1; // no more matches
         finds=[];
         id('buttonNextDone').innerHTML='DONE';
     }
-    id('display').style.display='block';
+    // id('display').style.display='block';
   }
   
   // EDIT word/phrase
@@ -195,7 +196,6 @@ function id(el) {
   	if(id('buttonNextDone').innerHTML=='DONE') id('display').style.display='none';
   	else if(find>=0) { // NEW code to show next match
   	    find++;
-  	    alert('next: '+find);
   	    showMatch();
   	}
   	// else SHOW NEXT FLASHCARD
