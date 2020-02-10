@@ -129,7 +129,6 @@ function id(el) {
   	}
   	if(found) { // if any matches...
   	    showMatch(); // show first match
-  	    alert(finds.length+' matches after '+i+' words');
   	}
   	else {
   		id('kanji').innerHTML=id('kana').innerHTML=id('romaji').innerHTML=id('anglo').innerHTML='';
