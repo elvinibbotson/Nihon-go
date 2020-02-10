@@ -154,8 +154,8 @@ function id(el) {
   		id('title').innerHTML="no matches";
 	}
 	id('findField').value='';
-	id('buttonNextDone').innerHTML='DONE';
-	id('display').style.display='block';
+	// id('buttonNextDone').innerHTML='DONE';
+	// id('display').style.display='block';
   })
   
   function showMatch() {
@@ -195,6 +195,7 @@ function id(el) {
   	if(id('buttonNextDone').innerHTML=='DONE') id('display').style.display='none';
   	else if(find>=0) { // NEW code to show next match
   	    find++;
+  	    alert('next: '+find);
   	    showMatch();
   	}
   	// else SHOW NEXT FLASHCARD
