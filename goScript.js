@@ -19,7 +19,7 @@ function id(el) {
 	var resort=false;
 	var qFocus=null;
 	var finds=[]; // NEW: list of words matching find term
-	var find=-1; // index for matching finds (-1 if none)
+	// var find=-1; // index for matching finds (-1 if none)
 
   // EVENT LISTENERS
 	
@@ -145,8 +145,8 @@ function id(el) {
    		i++;
   	}
   	if(found) { // if any matches...
-  	    find=finds[0];
-  	    id('buttonNextDone').innerHTML='NEXT';
+  	    // find=finds[0];
+  	    // id('buttonNextDone').innerHTML='NEXT';
   	    showMatch(); // show first match
   	}
   	else {
@@ -159,19 +159,21 @@ function id(el) {
   })
   
   function showMatch() {
-      alert('show match '+find+" of "+finds.length);
-    recordIndex=find; // NEEDED???
+    alert('show next match of '+finds.length);
+    recordIndex=finds.shift(); // next match
+    // recordIndex=find; // NEEDED???
   	record=records[recordIndex];
   	id('kanji').innerHTML=record.kanji;
   	id('kana').innerHTML=record.kana;
   	id('romaji').innerHTML=record.romaji;
   	id('anglo').innerHTML=record.anglo;
-    if(find==finds.length-1) { // last match
+    if(finds.length<1) { // last match
         alert('last match');
-        find=-1; // no more matches
-        finds=[];
+        // find=-1; // no more matches
+        // finds=[];
         id('buttonNextDone').innerHTML='DONE';
     }
+    else id('buttonNextDone').innerHTML='NEXT';
     // id('display').style.display='block';
   }
   
@@ -194,8 +196,8 @@ function id(el) {
   
   id('buttonNextDone').addEventListener('click', function() {
   	if(id('buttonNextDone').innerHTML=='DONE') id('display').style.display='none';
-  	else if(find>=0) { // NEW code to show next match
-  	    find++;
+  	else if(finds.length>0) { // NEW code to show next match
+  	    // find++;
   	    showMatch();
   	}
   	// else SHOW NEXT FLASHCARD
