@@ -25,7 +25,7 @@ function id(el) {
 	
   id("main").addEventListener('click', function() {
   	id("menu").style.display="none";
-  })
+  });
   
   // MENU BUTTON
 
@@ -41,7 +41,7 @@ function id(el) {
   	console.log("IMPORT");
 	// toggleDialog("importDialog", true);
 	id('importDialog').style.display='block';
-  })
+  });
   
   // CANCEL IMPORT DATA
 	
@@ -72,12 +72,12 @@ function id(el) {
 			};
 		for(var i=0;i<records.length;i++) {
 			console.log("add records"+i);
-			var request = dbObjectStore.add(records[i]);
+			request = dbObjectStore.add(records[i]);
 			request.onsuccess = function(e) {
 				console.log(records.length+" records added to database");
 			};
 			request.onerror = function(e) {console.log("error adding record");};
-		};
+		}
 		// toggleDialog('fileChooserDialog',false);
 		id('fileChooserDialog').style.display='none';
 		id("menu").style.display="none";
@@ -93,8 +93,7 @@ function id(el) {
 	var today= new Date();
 	var fileName = "tango" + today.getDate();
 	var n = today.getMonth();
-	// fileName += months.substr(n*3,3);
-	var n = today.getFullYear() % 100;
+	n = today.getFullYear() % 100;
 	if(n<10) fileName+="0";
 	fileName += n + ".json";
 	var data={'records': records};
@@ -110,7 +109,7 @@ function id(el) {
 	a.click();
 	alert(fileName+" saved to downloads folder");
 	id("menu").style.display="none";
-  })
+  });
   
   // FIND BUTTON
   
@@ -120,6 +119,7 @@ function id(el) {
   	var i=0;
   	var found=false;
   	record={};
+  	finds=[];
   	while(i<records.length) { // check every record
   	    if((records[i].romaji.indexOf(word)>=0)||(records[i].anglo.indexOf(word)>=0)) {
   	        found=true;
