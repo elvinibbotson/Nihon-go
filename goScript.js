@@ -120,23 +120,6 @@ function id(el) {
   	var i=0;
   	var found=false;
   	record={};
-  	/* old routine - just finds first match
-  	while((i<records.length)&&!found) {
-  		if(records[i].romaji.indexOf(word)>=0) found=true;
-  		if(records[i].anglo.indexOf(word)>=0) found=true;
-   		if(!found) i++;
-  	}
-  	console.log("found is "+found+" record is "+i);
-  	if(found) {
-  		id('title').innerHTML=word;
-  		id('kanji').innerHTML=records[i].kanji;
-  		id('kana').innerHTML=records[i].kana;
-  		id('romaji').innerHTML=records[i].romaji;
-  		id('anglo').innerHTML=records[i].anglo;
-  		record=records[i];
-  		recordIndex=i;
-  	}
-  	*/
   	while(i<records.length) { // check every records
   	    if((records[i].romaji.indexOf(word)>=0)||(records[i].anglo.indexOf(word)>=0)) {
   	        found=true;
@@ -154,27 +137,20 @@ function id(el) {
   		id('title').innerHTML="no matches";
 	}
 	id('findField').value='';
-	// id('buttonNextDone').innerHTML='DONE';
 	id('display').style.display='block';
   })
   
   function showMatch() {
-    alert('show next match of '+finds.length);
     recordIndex=finds.shift(); // next match
-    // recordIndex=find; // NEEDED???
   	record=records[recordIndex];
   	id('kanji').innerHTML=record.kanji;
   	id('kana').innerHTML=record.kana;
   	id('romaji').innerHTML=record.romaji;
   	id('anglo').innerHTML=record.anglo;
     if(finds.length<1) { // last match
-        alert('last match');
-        // find=-1; // no more matches
-        // finds=[];
         id('buttonNextDone').innerHTML='DONE';
     }
     else id('buttonNextDone').innerHTML='NEXT';
-    // id('display').style.display='block';
   }
   
   // EDIT word/phrase
@@ -196,12 +172,10 @@ function id(el) {
   
   id('buttonNextDone').addEventListener('click', function() {
   	if(id('buttonNextDone').innerHTML=='DONE') id('display').style.display='none';
-  	else if(finds.length>0) { // NEW code to show next match
-  	    // find++;
+  	else if(finds.length>0) { // show next match
   	    showMatch();
   	}
-  	// else SHOW NEXT FLASHCARD
-  	else { // flashcards
+  	else { // show next flashcard
   		if((lang=='Japanese')&&(step<4)) { // reveal words one at a time
   			step++;
   			if(step==2) {id('kana').innerHTML=record.kana}
