@@ -301,6 +301,11 @@ function id(el) {
 		}
 		else if(step==3) { // romaji
 			record.romaji=id('wordField').value.toLowerCase().split(",");
+			for(var i=0;i<record.romaji.length;i++) { // strip any spaces following commas
+	            var w=record.romaji[i];
+	            while(w.charAt(0)==' ') w=w.slice(1);
+	            record.romaji[i]=w;
+		    }
 			console.log('romaji:'+record.romaji);
 			id('dialogTitle').innerHTML+=" "+record.romaji;
 			step++;
@@ -315,12 +320,9 @@ function id(el) {
 	record.anglo=id('wordField').value.toLowerCase().split(",");
 	for(var i=0;i<record.anglo.length;i++) { // strip any spaces following commas
 	    var w=record.anglo[i];
-	    alert('word '+i+': '+w);
 	    while(w.charAt(0)==' ') w=w.slice(1);
-	    alert('now: '+w);
 	    record.anglo[i]=w;
 	}
-	alert('anglo:'+record.anglo);
 	id('dialogTitle').innerHTML+=" "+record.anglo; // ****** no point? ******
 	console.log("SAVE");
     // toggleDialog('recordDialog', false);
