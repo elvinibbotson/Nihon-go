@@ -314,7 +314,11 @@ function id(el) {
 	// reach here after entering English word (step 4)
 	record.anglo=id('wordField').value.toLowerCase().split(",");
 	for(var i=0;i<record.anglo.length;i++) { // strip any spaces following commas
-	    while(record.anglo[i].charAt(0)==' ') record.anglo.slice(1);
+	    var w=record.anglo[i];
+	    alert('word '+i+': '+w);
+	    while(w.charAt(0)==' ') w=w.slice(1);
+	    alert('now: '+w);
+	    record.anglo[i]=w;
 	}
 	alert('anglo:'+record.anglo);
 	id('dialogTitle').innerHTML+=" "+record.anglo; // ****** no point? ******
