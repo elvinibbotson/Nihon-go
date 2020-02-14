@@ -313,7 +313,10 @@ function id(el) {
 	}
 	// reach here after entering English word (step 4)
 	record.anglo=id('wordField').value.toLowerCase().split(",");
-	console.log('anglo:'+record.anglo);
+	for(var i=0;i<record.anglo.length;i++) { // strip any spaces following commas
+	    while(record.anglo[i].charAt(0)==' ') record.anglo.slice(1);
+	}
+	alert('anglo:'+record.anglo);
 	id('dialogTitle').innerHTML+=" "+record.anglo; // ****** no point? ******
 	console.log("SAVE");
     // toggleDialog('recordDialog', false);
