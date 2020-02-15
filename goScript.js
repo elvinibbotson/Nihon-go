@@ -135,6 +135,7 @@ function id(el) {
   		id('title').innerHTML="no matches";
 	}
 	id('findField').value='';
+	id('title').innerHTML=word;
 	id('display').style.display='block';
 	id('help').innerHTML='';
   })
@@ -363,12 +364,12 @@ function id(el) {
 		request.onerror = function(event) {console.log("error updating record "+record.id);};
 	}
 	id('title').innerHTML="saved";
-  id('kanji').innerHTML=record.kanji;
-  id('kana').innerHTML=record.kana;
-  id('romaji').innerHTML=record.romaji;
-  id('anglo').innerHTML=record.anglo;
-  id('buttonNextDone').innerHTML='DONE';
-  id('display').style.display='block';
+    id('kanji').innerHTML=record.kanji;
+    id('kana').innerHTML=record.kana;
+    id('romaji').innerHTML=record.romaji;
+    id('anglo').innerHTML=record.anglo;
+    id('buttonNextDone').innerHTML='DONE';
+    id('display').style.display='block';
   });
   
   // CANCEL NEW/EDIT RECORD
