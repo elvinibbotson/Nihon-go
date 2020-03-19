@@ -116,18 +116,28 @@ function id(el) {
   id('findButton').addEventListener('click', function() {
   	var word=id('findField').value.toLowerCase();
   	console.log("find "+word);
-  	var i=0;
+  	var i=0,j=0;
   	var found=false;
   	record={};
   	finds=[];
   	while(i<records.length) { // check every record
+  	    for(j=0;j<records[i].romaji.length;j++) {
+  	        if(records[i].romaji[j].indexOf(word)>=0) found=true;
+  	    }
+  	    for(j=0;j<records[i].anglo.length;j++) {
+  	        if(records[i].anglo[j].indexOf(word)>=0) found=true;
+  	    }
+  	    if(found) finds.push(i);
+  	    /*
   	    if((records[i].romaji.indexOf(word)>=0)||(records[i].anglo.indexOf(word)>=0)) {
   	        found=true;
   	        finds.push(i); // add record index to finds list
   	    }
+  	    */
    		i++;
   	}
   	if(found) { // if any matches...
+  	    id('title').innerHTML=word;
   	    showMatch(); // show first match
   	}
   	else {
@@ -135,7 +145,6 @@ function id(el) {
   		id('title').innerHTML="no matches";
 	}
 	id('findField').value='';
-	id('title').innerHTML=word;
 	id('display').style.display='block';
 	id('help').innerHTML='';
   })
@@ -450,3 +459,4 @@ function id(el) {
 			console.log('Service worker has been registered for scope:'+ reg.scope);
 		});
 	}
+ 
