@@ -129,17 +129,9 @@ function id(el) {
   	        if(records[i].anglo[j].indexOf(word)>=0) found=true;
   	    }
   	    if(found) finds.push(i);
-  	    /* old method did not find all matches!
-  	    if((records[i].romaji.indexOf(word)>=0)||(records[i].anglo.indexOf(word)>=0)) {
-  	        found=true;
-  	        finds.push(i); // add record index to finds list
-  	    }
-  	    */
    		i++;
   	}
-  	alert(finds.length+"matches");
   	if(finds.length>0) { // if any matches...
-  	// if(found) { // if any matches...
   	    id('title').innerHTML=word;
   	    showMatch(); // show first match
   	}
