@@ -121,6 +121,7 @@ function id(el) {
   	record={};
   	finds=[];
   	while(i<records.length) { // check every record
+  	    found=false;
   	    for(j=0;j<records[i].romaji.length;j++) {
   	        if(records[i].romaji[j].indexOf(word)>=0) found=true;
   	    }
