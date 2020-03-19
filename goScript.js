@@ -137,6 +137,7 @@ function id(el) {
   	    */
    		i++;
   	}
+  	alert(finds.length+"matches");
   	if(finds.length>0) { // if any matches...
   	// if(found) { // if any matches...
   	    id('title').innerHTML=word;
