@@ -16,7 +16,6 @@
 <body>
 
 <header class="header">
-	<button id="buttonMenu" type="menu" menu="menu" class="headerButton" aria-label="Menu"></button>
 	<h1 id="heading" class="header_title">Tango 単語 <span id='wordcount'></span> words</h1>
 	<button id="buttonAdd" class="headerButton"></button>
 </header>
@@ -47,20 +46,13 @@
     </div>
 </main>
 
-<menu type="context" id="menu">
-	<p><menuitem id="import">import</menuitem></p>
-	<p><menuitem id="export">export</menuitem></p>
-</menu>
-
-<div id="importDialog" class="dialog-container">
-	<div class="dialog">
-		<div class="dialog-title">Load from saved file</div>
-		<input type="file" id="fileChooser">
-		<div class="dialog-body">Imported data will replace any records you already have.</div>
-    		<div class="dialog-buttons">
-			<button id="buttonCancelImport" class="button">CANCEL</button>
-    		</div>
-	</div>
+<div id="importDialog" class="dialog">
+	<div class="dialog-title">Load from saved file</div>
+	<input type="file" id="fileChooser">
+	<div class="dialog-body">Imported data will replace any records you already have.</div>
+    <div class="dialog-buttons">
+		<button id="buttonCancelImport" class="button">CANCEL</button>
+    </div>
 </div>
 
 <div class="display" id='display'>
@@ -89,7 +81,7 @@
 	</div>
 </div>
 
- <script src="goScript.js" async></script>
+<script src="goScript.js" async></script>
 
 </body>
 

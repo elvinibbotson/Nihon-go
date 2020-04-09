@@ -22,98 +22,15 @@ function id(el) {
 	// var find=-1; // index for matching finds (-1 if none)
 
   // EVENT LISTENERS
-	
-  id("main").addEventListener('click', function() {
-  	id("menu").style.display="none";
-  });
   
-  // MENU BUTTON
+  
 
-  id('buttonMenu').addEventListener('click', function() {
-	var display = id("menu").style.display;
-	if(display == "block") id("menu").style.display = "none";
-	else id("menu").style.display = "block";
-  });
-  
-  // IMPORT OPTION
 	
-  id("import").addEventListener('click', function() {
-  	console.log("IMPORT");
-	// toggleDialog("importDialog", true);
-	id('importDialog').style.display='block';
-  });
   
-  // CANCEL IMPORT DATA
-	
-  id('buttonCancelImport').addEventListener('click', function() {
-    // toggleDialog('importDialog', false);
-    id('importDialog').style.display='none';
-	id("menu").style.display="none";
-  });
 
-	// IMPORT FILE
-
-  id("fileChooser").addEventListener('change', function() {
-	var file=id('fileChooser').files[0];
-	console.log("file: "+file+" name: "+file.name);
-	var fileReader=new FileReader();
-	fileReader.addEventListener('load', function(evt) {
-		console.log("file read: "+evt.target.result);
-		var data=evt.target.result;
-		var json=JSON.parse(data);
-		console.log("json: "+json);
-		var records=json.records;
-		console.log(records.length+" records loaded");
-		var dbTransaction = db.transaction('go',"readwrite");
-		var dbObjectStore = dbTransaction.objectStore('go');
-		var request = dbObjectStore.clear();
-			request.onsuccess = function(e) {
-				console.log(records.length+" records in database");
-			};
-		for(var i=0;i<records.length;i++) {
-			console.log("add records"+i);
-			request = dbObjectStore.add(records[i]);
-			request.onsuccess = function(e) {
-				console.log(records.length+" records added to database");
-			};
-			request.onerror = function(e) {console.log("error adding record");};
-		}
-		// toggleDialog('fileChooserDialog',false);
-		id('fileChooserDialog').style.display='none';
-		id("menu").style.display="none";
-		alert("records imported - restart");		
-  	});
-  	fileReader.readAsText(file);
-  },false);
   
-  // EXPORT FILE
-	
-  id("export").addEventListener('click', function() {
-  	console.log("EXPORT");
-	var today= new Date();
-	var fileName = "tango" + today.getDate();
-	var n = today.getMonth();
-	n = today.getFullYear() % 100;
-	if(n<10) fileName+="0";
-	fileName += n + ".json";
-	var data={'records': records};
-	var json=JSON.stringify(data);
-	console.log(records.length+" records to save");
-	var blob=new Blob([json], {type:"data:application/json"});
-	var a =document.createElement('a');
-	a.style.display='none';
-	var url = window.URL.createObjectURL(blob);
-	a.href= url;
-	a.download=fileName;
-	document.body.appendChild(a);
-	a.click();
-	alert(fileName+" saved to downloads folder");
-	id("menu").style.display="none";
-  });
-  
-  // FIND BUTTON
-  
-  id('findButton').addEventListener('click', function() {
+// FIND BUTTON
+id('findButton').addEventListener('click', function() {
   	var word=id('findField').value.toLowerCase();
   	console.log("find "+word);
   	var i=0,j=0;
@@ -142,9 +59,9 @@ function id(el) {
 	id('findField').value='';
 	id('display').style.display='block';
 	id('help').innerHTML='';
-  })
+})
   
-  function showMatch() {
+function showMatch() {
     recordIndex=finds.shift(); // next match
   	record=records[recordIndex];
   	id('kanji').innerHTML=record.kanji;
@@ -155,11 +72,10 @@ function id(el) {
         id('buttonNextDone').innerHTML='DONE';
     }
     else id('buttonNextDone').innerHTML='NEXT';
-  }
+}
   
-  // EDIT word/phrase
-  
-  id('buttonEdit').addEventListener('click', function() {
+// EDIT word/phrase
+id('buttonEdit').addEventListener('click', function() {
   	id('display').style.display='none';
   	mode='edit';
   	id('dialogTitle').innerHTML="edit word/phrase";
@@ -170,11 +86,10 @@ function id(el) {
   	id("buttonDelete").disabled=false;
 		id('buttonDelete').style.color='red';
 		id('recordDialog').style.display='block';
-  })
+})
   
-  // NEXT/DONE
-  
-  id('buttonNextDone').addEventListener('click', function() {
+// NEXT/DONE
+id('buttonNextDone').addEventListener('click', function() {
   	if(id('buttonNextDone').innerHTML=='DONE') id('display').style.display='none';
   	else if(finds.length>0) { // show next match
   	    showMatch();
@@ -203,11 +118,10 @@ function id(el) {
   		}
   		else flashcard(false);
   	}
-  })
+})
   
-  // JAPANESE flashcards
-  
-  id('nihongoButton').addEventListener('click', function() {
+// JAPANESE flashcards
+id('nihongoButton').addEventListener('click', function() {
 	id('title').innerHTML='Japanese kanji';
 	id('buttonNextDone').innerHTML='NEXT';
 	lang='Japanese';
@@ -215,11 +129,10 @@ function id(el) {
 	id('help').innerHTML='';
 	// cardIndex=Math.floor(Math.random()*records.length);
 	flashcard(true);
-  })
+})
   
-  // ENGLISH flashcards
-  
-  id('angloButton').addEventListener('click', function() {
+// ENGLISH flashcards
+id('angloButton').addEventListener('click', function() {
 	id('title').innerHTML='English';
 	id('buttonNextDone').innerHTML='NEXT';
 	lang='English';
@@ -227,11 +140,10 @@ function id(el) {
 	id('help').innerHTML='';
 	// cardIndex=Math.floor(Math.random()*records.length);
 	flashcard(true);
-  })
+})
   
-  // RANDOM FLASHCARD
-  
-  function flashcard(first) {
+// RANDOM FLASHCARD
+function flashcard(first) {
   	if(first) {
   		cardIndex=Math.floor(Math.random()*records.length);
   		cardStep=1+Math.floor(Math.random()*5); // flashcards step by 1-5 words
@@ -260,11 +172,10 @@ function id(el) {
   		step=4;	
   	}
   	cardIndex=(cardIndex+cardStep)%records.length; // ready for next flashcard
-  }
+}
   
-  // ADD word/phrase BUTTON
-  
-  id('buttonAdd').addEventListener('click', function() {
+// ADD word/phrase BUTTON
+id('buttonAdd').addEventListener('click', function() {
     id('display').style.display='none';
     mode='add';
     step=1;
@@ -279,11 +190,10 @@ function id(el) {
 	// toggleDialog('recordDialog', true);
 	id('recordDialog').style.display='block';
 	id('help').innerHTML='';
-  });
+});
   
-  // NEXT field or SAVE NEW/EDITED RECORD
-
-  id('buttonNextSave').addEventListener('click', function() {
+// NEXT field or SAVE NEW/EDITED RECORD
+id('buttonNextSave').addEventListener('click', function() {
 	console.log("input: "+id('wordField').value);
 	if(id('buttonNextSave').innerHTML=='NEXT') {
 		if(step==1) { // kanji
@@ -374,19 +284,17 @@ function id(el) {
     id('anglo').innerHTML=record.anglo;
     id('buttonNextDone').innerHTML='DONE';
     id('display').style.display='block';
-  });
+});
   
-  // CANCEL NEW/EDIT RECORD
-
-  id('buttonCancel').addEventListener('click', function() {
+// CANCEL NEW/EDIT RECORD
+id('buttonCancel').addEventListener('click', function() {
     // Close the add new jotting dialog
     // toggleDialog('recordDialog', false);
     id('recordDialog').style.display='none';
-  });
+});
   
-  // DELETE RECORD
-  
-  id('buttonDelete').addEventListener('click', function() {
+// DELETE RECORD
+id('buttonDelete').addEventListener('click', function() {
 	// toggleDialog('recordDialog', false);
 	// id('recordDialog').style.display='none';
 	alert("delete record "+record.id);
@@ -401,11 +309,74 @@ function id(el) {
 		// fillList();
 	};
 	request.onerror = function(event) {console.log("error deleting record "+record.id);};
-  });
-
-  // START-UP CODE
+});
   
+// RESTORE BACKUP
+id("fileChooser").addEventListener('change', function() {
+    console.log("file chosen");
+	var file=id('fileChooser').files[0];
+	console.log("file: "+file+" name: "+file.name);
+	var fileReader=new FileReader();
+	fileReader.addEventListener('load', function(evt) {
+		console.log("file read: "+evt.target.result);
+		var data=evt.target.result;
+		var json=JSON.parse(data);
+		console.log("json: "+json);
+		var records=json.records;
+		console.log(records.length+" records loaded");
+		var dbTransaction = db.transaction('go',"readwrite");
+		var dbObjectStore = dbTransaction.objectStore('go');
+		var request = dbObjectStore.clear();
+			request.onsuccess = function(e) {
+				console.log(records.length+" records in database");
+			};
+		for(var i=0;i<records.length;i++) {
+			console.log("add records"+i);
+			request = dbObjectStore.add(records[i]);
+			request.onsuccess = function(e) {
+				console.log(records.length+" records added to database");
+			};
+			request.onerror = function(e) {console.log("error adding record");};
+		}
+		// toggleDialog('fileChooserDialog',false);
+		id('fileChooserDialog').style.display='none';
+		id("menu").style.display="none";
+		alert("records imported - restart");		
+  	});
+  	fileReader.readAsText(file);
+});
+
+// CANCEL RESTORE
+id('buttonCancelImport').addEventListener('click', function() {
+    console.log("cancel restore");
+    id('importDialog').style.display='none';
+});
+
+// BACKUP
+function backup() {
+  	console.log("EXPORT");
+	var fileName="tango.json";
+	var data={'records': records};
+	var json=JSON.stringify(data);
+	console.log(records.length+" records to save");
+	var blob=new Blob([json], {type:"data:application/json"});
+	var a =document.createElement('a');
+	a.style.display='none';
+	var url=window.URL.createObjectURL(blob);
+	a.href=url;
+	a.download=fileName;
+	document.body.appendChild(a);
+	a.click();
+	alert(fileName+" saved to downloads folder");
+	var today=new Date();
+	lastSave=today.getMonth(); // remember month of backup
+	window.localStorage.setItem('lastSave',lastSave);
+}
+
+// START-UP CODE
   console.log("STARTING");
+  lastSave=window.localStorage.getItem('lastSave');
+  console.log('lastSave: '+lastSave);
   var defaultData = {records: [{kanji:"字", level:1, kana:"じ ", romaji:"ji", anglo:"character"}]}
   var request = window.indexedDB.open("nihongoDB");
 	request.onsuccess = function(event) {
@@ -431,8 +402,14 @@ function id(el) {
     			}
 			else {
 				console.log("No more entries!");
-				// console.log("words: "+words);
+				console.log("words: "+records.length);
 				id('wordcount').innerHTML=records.length;
+				if(records.length<1) {
+				    console.log("no records - restore backup?");
+				    id('importDialog').style.display='block'; // offer to recover backup
+				}
+				var today=new Date();
+				if(today.getMonth()!=lastSave) backup(); // monthly backups
 			}
 		};
 	};

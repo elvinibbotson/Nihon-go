@@ -96,7 +96,7 @@ input {
   transition: -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
   transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
   transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s, -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
-  z-index: 1000;
+  z-index: 10;
   }
   .headerButton {
     width: 24px;
@@ -112,10 +112,8 @@ input {
     outline: none;
     cursor: pointer;
  }
- .header #buttonMenu {
-    background: url(menuButton24px.svg) center center no-repeat;
- }
- .header #buttonAdd {
+
+.header #buttonAdd {
    background: url(newButton24px.svg) center center no-repeat;
    margin-right: 20px;
  }
@@ -141,7 +139,7 @@ input {
   -webkit-overflow-scrolling: touch;
 }
   
-  #findButton {
+#findButton {
     width: 40px;
     height: 40px;
     margin-left: 10px;
@@ -155,7 +153,7 @@ input {
     outline: none;
     cursor: pointer;
     background: url(findButton24px.svg) center center no-repeat;
-  }
+}
   
 .flashcardButton {
   height: 50px;
@@ -175,17 +173,6 @@ input {
     background-color: silver;
 }
 
-#menu {
-	position: fixed;
-	top: 24px;
-	left: 0;
-	padding-left: 20px;
-	padding-right: 20px;
-	background-color: #DDD;
-	font-size: 1.5em;
-	display: none;
-}
-
 .display {
   background: #DDD;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.24), 0 14px 28px rgba(0, 0, 0, 0.48);
@@ -202,22 +189,6 @@ input {
   font-size: 2em;
 }
 
-.dialog-container {
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  pointer-events: none;
-  -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
-  transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1); }
-
-.dialog-container--visible {
-  opacity: 1;
-  pointer-events: auto; }
-
 .dialog {
   background: #DDD;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.24), 0 14px 28px rgba(0, 0, 0, 0.48);
@@ -228,6 +199,7 @@ input {
   padding-top:25px;
   font-size: 1.2em;
   display: none;
+  z-index: 100;
 }
 
 .dialog > div {
