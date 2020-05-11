@@ -37,21 +37,23 @@ body {
       -ms-flex-line-pack: stretch;
           align-content: stretch;
   font-size: 1.2em;
-  background: "gray" }
+  background: "black" }
 
 button {
 	height: 36px;
 	font-size: 1em;
 	vertical-align: bottom;
-	background-color: white;
-	border: 1px solid black;
+	color: white;
+	background-color: dimgray;
+	border: 1px solid white;
 }
 
 input {
 	width: 70%;
 	height: 40px;
-	background-color: white;
-	border: 1px solid gray;
+	color: white;
+	background-color: dimgray;
+	border: 1px solid white;
 	padding-left: 5px;
 	font-size: 1.2em;
 }
@@ -60,83 +62,26 @@ input {
 	margin: 20px;
 }
  
-.header {
+#header {
   width: 100%;
-  height: 40px;
-  color: #FFF;
-  background: red;
+  height: 32px;
+  color: white;
+  background: dimgray;
   position: fixed;
-  font-size: 1em;
-  padding: 10px 10px 0 10px;
-  will-change: transform;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-flex-wrap: nowrap;
-      -ms-flex-wrap: nowrap;
-          flex-wrap: nowrap;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: stretch;
-  -webkit-align-items: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-  -webkit-align-content: center;
-      -ms-flex-line-pack: center;
-          align-content: center;
-  -webkit-transition: -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
-  transition: -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
-  transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
-  transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s, -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
+  padding: 10px 10px 10px 10px;
   z-index: 10;
-  }
-  .headerButton {
-    width: 24px;
-    height: 24px;
-	  margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 4px;
-    overflow: hidden;
-    opacity: 1;
-    -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
-    transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
-    border: none;
-    outline: none;
-    cursor: pointer;
- }
-
-.header #buttonAdd {
-   background: url(newButton24px.svg) center center no-repeat;
-   margin-right: 20px;
- }
-
-.header_title {
-  font-weight: 400;
-  font-size: 1.2em;
-  margin: 0;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
 }
 
-.main {
-  padding-top: 10px;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+#headerTitle {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 0;
+}
+
+#wordcount {
+    font-size: 1em;
+    text-align: bottom;
+    float: right;
 }
   
 #findButton {
@@ -146,12 +91,8 @@ input {
     margin-right: 20px;
     margin-top: 4px;
     overflow: hidden;
-    opacity: 1;
-    -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
-    transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
     border: none;
     outline: none;
-    cursor: pointer;
     background: url(findButton24px.svg) center center no-repeat;
 }
   
@@ -160,7 +101,25 @@ input {
   font-size: 1.5em;
 }
 
-#buttonNew {
+.round-button {
+	display: block;
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	border: none;
+	border-radius: 50%;
+	background: dimgray;
+	z-index: 50;
+}
+
+.round-button img {
+	display: block;
+	width: 24px;
+	height: 24px;
+	padding: 13px;
+}
+
+#buttonAdd {
 	right: 20px;
 	bottom: 20px;
 }
@@ -169,19 +128,31 @@ input {
     width: 100%;
     position: relative;
     top: 50px;
-    padding: 10px;
-    background-color: silver;
+    color: white;
+    background-color: black;
+    padding-top: 10px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.content {
+    margin: 10px;
 }
 
 .display {
-  background: #DDD;
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.24), 0 14px 28px rgba(0, 0, 0, 0.48);
   position: absolute;
   margin: 8%;
   top: 180px;
   width: 80%;
   padding: 10px;
   font-size: x-large;
+  color: white;
+  background: dimgray;
   display: none;
 }
 
@@ -190,14 +161,14 @@ input {
 }
 
 .dialog {
-  background: #DDD;
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.24), 0 14px 28px rgba(0, 0, 0, 0.48);
   position: absolute;
   left: 0;
-  top: 32px;
+  bottom: 0;
   width: 100%;
   padding-top:25px;
   font-size: 1.2em;
+  color: white;
+  background: dimgray;
   display: none;
   z-index: 100;
 }
@@ -229,9 +200,6 @@ input {
   float: right;
 }
 
-.button {
-	background-color: white;
-}
-.deleteButton {
-	color: red;
+#deleteButton {
+	color: yellow;
 }

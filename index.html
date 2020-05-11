@@ -3,47 +3,45 @@
 
 <head>
 	<meta charset="utf-8">
-  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<title>Tango</title>
   	<link rel="manifest" href="goManifest.json">
   	<link rel="stylesheet" type="text/css" href="goStyles.css">
   	<meta name="application-name" content="Tango">
-  	<meta name="msapplication-square150x150logo" content="icons/icon150px.png">
-  	<meta name="msapplication-square70x70logo" content="icons/icon75px.png">
+  	<meta name="msapplication-square150x150logo" content="icons/tango150px.png">
+  	<meta name="msapplication-square70x70logo" content="icons/tango75px.png">
 </head>
 
 <body>
 
-<header class="header">
-	<h1 id="heading" class="header_title">Tango 単語 <span id='wordcount'></span> words</h1>
-	<button id="buttonAdd" class="headerButton"></button>
+<header id="header">
+	<span id="headerTitle">Tango 単語 </span>
+	<span id='wordcount'><span id='count'></span> words</span>
 </header>
 
-<main id="main" class="main">
-   <div class="container">
-        <div class="content">
-			<input type='text' id='findField'/>
-			<button id='findButton'></button>
-        </div>
-        <div class="content">
-        	<br/>
-        	<button class='flashcardButton' id='nihongoButton'>日本語</button>
-        	<button class='flashcardButton' id='angloButton'>English</button>
-        	flashcards
-        </div>
-        <div id='help'>
-		    <p><img src='newButton24px.svg'/> <b>Add vocabulary</b><br>
-		    Use Japanese keyboard for...<br>
-		    kanji (skip if none) and...<br> 
-		    hiragana/katakana, and...<br/>
-		    English keyboard for...<br>
-		    Romaji and English.</p>
-		    <p><img src='findButton24px.svg'/> <b>Find</b> Japanese (Romaji)<br>
-		    or English words.</p>
-		    <p>Test yourself using Japanese<br>or English <b>flashcards</b></p>
-		</div>
+<main id="main">
+    <div class="content">
+		<input type='text' id='findField'/>
+		<button id='findButton'></button>
     </div>
+    <div class="content">
+        <br/>
+        <button class='flashcardButton' id='nihongoButton'>日本語</button>
+        <button class='flashcardButton' id='angloButton'>English</button>
+        flashcards
+    </div>
+    <div id='help' class='content'>
+		<p><img src='addButton24px.svg'/> <b>Add vocabulary</b><br>
+		Use Japanese keyboard for...<br>
+		kanji (skip if none) and...<br> 
+		hiragana/katakana, and...<br/>
+		English keyboard for...<br>
+		Romaji and English.</p>
+		<p><img src='findButton24px.svg'/> <b>Find</b> Japanese (Romaji)<br>
+		or English words.</p>
+		<p>Test yourself using Japanese<br>or English <b>flashcards</b></p>
+	</div>
+	<div id='buttonAdd' class='round-button'><img src='addButton24px.svg'/></div>
 </main>
 
 <div id="importDialog" class="dialog">
@@ -51,7 +49,7 @@
 	<input type="file" id="fileChooser">
 	<div class="dialog-body">Imported data will replace any records you already have.</div>
     <div class="dialog-buttons">
-		<button id="buttonCancelImport" class="button">CANCEL</button>
+		<button id="buttonCancelImport">CANCEL</button>
     </div>
 </div>
 
@@ -62,8 +60,8 @@
 	<div class="dialog-body" id='romaji'></div>
 	<div class="dialog-body" id='anglo'></div>
 	<div class="dialog-buttons">
-		<button id="buttonEdit" class="button">EDIT</button>
-		<button id="buttonNextDone" class="button">DONE</button>
+		<button id="buttonEdit">EDIT</button>
+		<button id="buttonNextDone">DONE</button>
     </div>
 </div>
 
@@ -75,9 +73,9 @@
 	  <div class="dialog-body">Romanji <input type="text" id="romajiField"/></div>
 	  <div class="dialog-body">English <input type="text" id="angloField"/></div-->
 	<div class="dialog-buttons">
-		<button id="buttonDelete" class="deleteButton">DELETE</button>
-	  	<button id="buttonCancel" class="button">CANCEL</button>
-      	<button id="buttonNextSave" class="button">NEXT</button>  
+		<button id="buttonDelete">DELETE</button>
+	  	<button id="buttonCancel">CANCEL</button>
+      	<button id="buttonNextSave">NEXT</button>  
 	</div>
 </div>
 

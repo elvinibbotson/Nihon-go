@@ -4,12 +4,12 @@
   "orientation":"portrait",
   "icons": [
 	{
-		"src": "icons/icon192px.png",
+		"src": "icons/tango192px.png",
 		"sizes": "192x192",
 		"type": "image/png"
 	},
 	{
-		"src": "icons/icon512px.png",
+		"src": "icons/tango512px.png",
 		"sizes": "512x512",
 		"type": "image/png"
 	}  
@@ -17,6 +17,6 @@
   "start_url": "/Tango/",
   "display": "standalone",
   "orientation":"portrait",
-  "background_color": "#333333",
-  "theme_color": "#333333"
+  "background_color": "dimgray",
+  "theme_color": "dimgray"
 }

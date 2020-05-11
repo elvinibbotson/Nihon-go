@@ -84,7 +84,7 @@ id('buttonEdit').addEventListener('click', function() {
   	step=1;
   	id('buttonNextSave').innerHTML='NEXT';
   	id("buttonDelete").disabled=false;
-		id('buttonDelete').style.color='red';
+		id('buttonDelete').style.color='yellow';
 		id('recordDialog').style.display='block';
 })
   
@@ -266,7 +266,7 @@ id('buttonNextSave').addEventListener('click', function() {
 			}
 			records.splice(i,0,record);
 			qFocus=null;
-			id('wordcount').innerHTML=records.length;
+			id('count').innerHTML=records.length;
 		};
 		request.onerror = function(event) {console.log("error adding new record");};
 	}
@@ -403,7 +403,7 @@ function backup() {
 			else {
 				console.log("No more entries!");
 				console.log("words: "+records.length);
-				id('wordcount').innerHTML=records.length;
+				id('count').innerHTML=records.length;
 				if(records.length<1) {
 				    console.log("no records - restore backup?");
 				    id('importDialog').style.display='block'; // offer to recover backup
