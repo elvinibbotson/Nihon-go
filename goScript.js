@@ -21,14 +21,8 @@ function id(el) {
 	var finds=[]; // NEW: list of words matching find term
 	// var find=-1; // index for matching finds (-1 if none)
 
-  // EVENT LISTENERS
-  
-  
+// EVENT LISTENERS
 
-	
-  
-
-  
 // FIND BUTTON
 id('findButton').addEventListener('click', function() {
   	var word=id('findField').value.toLowerCase();

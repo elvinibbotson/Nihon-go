@@ -52,7 +52,7 @@ input {
 	width: 70%;
 	height: 40px;
 	color: white;
-	background-color: dimgray;
+	background-color: black;
 	border: 1px solid white;
 	padding-left: 5px;
 	font-size: 1.2em;
@@ -68,20 +68,24 @@ input {
   color: white;
   background: dimgray;
   position: fixed;
+  vertical-align: middle;
   padding: 10px 10px 10px 10px;
   z-index: 10;
 }
 
 #headerTitle {
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.5em;
   margin: 0;
 }
 
 #wordcount {
+    position: fixed;
+    left: 10px;
+    bottom: 20px;
+    color: white;
     font-size: 1em;
-    text-align: bottom;
-    float: right;
+    z-index: 10;
 }
   
 #findButton {
@@ -97,8 +101,10 @@ input {
 }
   
 .flashcardButton {
-  height: 50px;
-  font-size: 1.5em;
+  height: 40px;
+  font-size: 1.2em;
+  color: white;
+  background-color: black;
 }
 
 .round-button {
