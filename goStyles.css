@@ -64,12 +64,13 @@ input {
  
 #header {
   width: 100%;
-  height: 32px;
+  height: 40px;
   color: white;
   background: dimgray;
   position: fixed;
   vertical-align: middle;
-  padding: 10px 10px 10px 10px;
+  padding-left: 10px;
+  /*padding: 10px 10px 10px 10px;*/
   z-index: 10;
 }
 
@@ -133,7 +134,7 @@ input {
 #main {
     width: 100%;
     position: relative;
-    top: 50px;
+    top: 40px;
     color: white;
     background-color: black;
     padding-top: 10px;

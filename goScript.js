@@ -64,9 +64,14 @@ function showMatch() {
   	id('anglo').innerHTML=record.anglo;
     if(finds.length<1) { // last match
         id('buttonNextDone').innerHTML='DONE';
+        console.log('last match');
     }
     else id('buttonNextDone').innerHTML='NEXT';
 }
+
+id('buttonClose').addEventListener('click', function() {
+    id('display').style.display='none';
+})
   
 // EDIT word/phrase
 id('buttonEdit').addEventListener('click', function() {
@@ -142,7 +147,6 @@ function flashcard(first) {
   		cardIndex=Math.floor(Math.random()*records.length);
   		cardStep=1+Math.floor(Math.random()*5); // flashcards step by 1-5 words
   		console.log("flashcard "+cardIndex+" step by "+cardStep);
-
   	}
   	console.log("flashcard "+cardIndex);
   	recordIndex=cardIndex; // NEEDED???
@@ -181,7 +185,7 @@ id('buttonAdd').addEventListener('click', function() {
 	id("buttonDelete").disabled=true;
 	id('buttonDelete').style.color='gray';
 	id('buttonNextSave').innerHTML='NEXT';
-	// toggleDialog('recordDialog', true);
+	id('burronClose').disabled=false;
 	id('recordDialog').style.display='block';
 	id('help').innerHTML='';
 });
@@ -283,14 +287,11 @@ id('buttonNextSave').addEventListener('click', function() {
 // CANCEL NEW/EDIT RECORD
 id('buttonCancel').addEventListener('click', function() {
     // Close the add new jotting dialog
-    // toggleDialog('recordDialog', false);
     id('recordDialog').style.display='none';
 });
   
 // DELETE RECORD
 id('buttonDelete').addEventListener('click', function() {
-	// toggleDialog('recordDialog', false);
-	// id('recordDialog').style.display='none';
 	alert("delete record "+record.id);
 	var dbTransaction = db.transaction("go","readwrite");
 	console.log("transaction ready");
@@ -300,7 +301,6 @@ id('buttonDelete').addEventListener('click', function() {
 		records.splice(recordIndex,1) // remove record form records array
 		console.log("record "+recordIndex+" (id "+record.id+") deleted. "+records.length+" records");
 		id('recordDialog').style.display='none';
-		// fillList();
 	};
 	request.onerror = function(event) {console.log("error deleting record "+record.id);};
 });
@@ -335,8 +335,8 @@ id("fileChooser").addEventListener('change', function() {
 		// toggleDialog('fileChooserDialog',false);
 		id('fileChooserDialog').style.display='none';
 		id("menu").style.display="none";
-		alert("records imported - restart");		
-  	});
+		alert("records imported - restart")
+	});
   	fileReader.readAsText(file);
 });
 
