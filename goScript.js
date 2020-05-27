@@ -185,7 +185,7 @@ id('buttonAdd').addEventListener('click', function() {
 	id("buttonDelete").disabled=true;
 	id('buttonDelete').style.color='gray';
 	id('buttonNextSave').innerHTML='NEXT';
-	id('burronClose').disabled=false;
+	id('buttonClose').disabled=false;
 	id('recordDialog').style.display='block';
 	id('help').innerHTML='';
 });
