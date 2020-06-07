@@ -370,7 +370,7 @@ function backup() {
 // START-UP CODE
   console.log("STARTING");
   lastSave=window.localStorage.getItem('lastSave');
-  alert('lastSave: '+lastSave);
+  console.log('lastSave: '+lastSave);
   var defaultData = {records: [{kanji:"字", level:1, kana:"じ ", romaji:"ji", anglo:"character"}]}
   var request = window.indexedDB.open("nihongoDB");
 	request.onsuccess = function(event) {
