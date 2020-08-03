@@ -363,15 +363,15 @@ function backup() {
     document.body.appendChild(a);
     a.click();
     alert(fileName + " saved to downloads folder");
-    var today = new Date();
-    lastSave = today.getMonth(); // remember month of backup
-    window.localStorage.setItem('lastSave', lastSave);
+    var today=new Date();
+    lastSave=today.getMonth(); // remember month of backup
+    window.localStorage.setItem('tangoSave', lastSave);
 }
 
 // START-UP CODE
 console.log("STARTING");
-lastSave = window.localStorage.getItem('lastSave');
-console.log('lastSave: ' + lastSave);
+lastSave=window.localStorage.getItem('tangoSave');
+console.log('lastSave: '+lastSave);
 var defaultData = {
     records: [{
         kanji: "字",
@@ -410,9 +410,12 @@ request.onsuccess = function(event) {
                 console.log("no records - restore backup?");
                 id('importDialog').style.display = 'block'; // offer to recover backup
             }
-            var today=new Date();
-            alert('this month: '+today.getMonth()+'; lastSave: '+lastSave);
-            if (today.getMonth()!=lastSave) backup(); // monthly backups
+            // var today=new Date();
+            // alert('this month: '+today.getMonth()+'; lastSave: '+lastSave);
+            // if (today.getMonth()!=lastSave) backup(); // monthly backups
+            var thisMonth=new Date().getMonth();
+	        alert('thisMonth:'+thisMonth+' lastSave:'+lastSave);
+	        if(thisMonth!=lastSave) backup(); // monthly backups
         }
     };
 };
