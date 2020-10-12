@@ -414,7 +414,6 @@ request.onsuccess = function(event) {
             // alert('this month: '+today.getMonth()+'; lastSave: '+lastSave);
             // if (today.getMonth()!=lastSave) backup(); // monthly backups
             var thisMonth=new Date().getMonth();
-	        alert('thisMonth:'+thisMonth+' lastSave:'+lastSave);
 	        if(thisMonth!=lastSave) backup(); // monthly backups
         }
     };
