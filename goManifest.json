@@ -1,20 +1,16 @@
 {
-  "name": "Tango PWA",
-  "short_name": "Tango",
+  "name": "go PWA",
+  "short_name": "go",
   "orientation":"portrait",
   "icons": [
 	{
-		"src": "icons/tango192px.png",
+		"src": "go.png",
 		"sizes": "192x192",
-		"type": "image/png"
-	},
-	{
-		"src": "icons/tango512px.png",
-		"sizes": "512x512",
-		"type": "image/png"
-	}  
+		"type": "image/png",
+		"purpose": "any maskable"
+	}
   ],
-  "start_url": "/Tango/",
+  "start_url": "/go/",
   "display": "standalone",
   "orientation":"portrait",
   "background_color": "dimgray",
