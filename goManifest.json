@@ -4,8 +4,8 @@
   "orientation":"portrait",
   "icons": [
 	{
-		"src": "go.png",
-		"sizes": "192x192",
+		"src": "go512.png",
+		"sizes": "512x512",
 		"type": "image/png",
 		"purpose": "any maskable"
 	}
@@ -13,6 +13,6 @@
   "start_url": "/go/",
   "display": "standalone",
   "orientation":"portrait",
-  "background_color": "dimgray",
-  "theme_color": "dimgray"
+  "background_color": "red",
+  "theme_color": "red"
 }
